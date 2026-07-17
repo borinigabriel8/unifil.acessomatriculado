@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação de Documento Estudantil - UniFil</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e67e22 0%, #fab1a0 100%);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 750px;
+            overflow: hidden;
+            border-left: 10px solid #f2811d; /* Laranja UniFil */
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background-color: transparent;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .logo-container img {
+            max-width: 130px;
+            height: auto;
+            display: block;
+        }
+
+        .header-titles {
+            text-align: right;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .sub-header {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 25px;
+            padding: 20px 25px;
+            align-items: center;
+        }
+
+        .foto-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .foto-aluno {
+            width: 130px;
+            height: 165px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 3px solid #e2e8f0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .status-box {
+            background-color: #e6f4ea;
+            border: 1.5px solid #137333;
+            color: #137333;
+            text-align: center;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .dados-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 20px;
+        }
+
+        .info-field.full-width {
+            grid-column: span 2;
+            border-bottom: 1px dashed #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        .label {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .value {
+            font-size: 0.95rem;
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .value-destaque {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .footer {
+            background-color: rgba(248, 250, 252, 0.8);
+            padding: 12px 25px;
+            font-size: 0.75rem;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-text {
+            line-height: 1.4;
+        }
+
+        .safe-stamp {
+            padding: 4px 10px;
+            background-color: #e6f4ea;
+            border: 1px solid #137333;
+            border-radius: 4px;
+            color: #137333;
+            font-weight: bold;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        /* ==========================================================================
+           MÍDIA QUERY: AJUSTES EXCLUSIVOS PARA CELULAR (TELAS ATÉ 600px)
+           ========================================================================== */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            /* Muda a borda de destaque para o topo, já que na vertical faz mais sentido */
+            .container {
+                border-left: none;
+                border-top: 8px solid #f2811d;
+            }
+
+            /* Cabeçalho empilha a logo e os textos */
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+                padding: 15px;
+            }
+
+            .header-titles {
+                text-align: center;
+            }
+
+            .header h1 {
+                font-size: 1.1rem;
+            }
+
+            /* Conteúdo principal vira uma coluna só (Foto em cima, Dados embaixo) */
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 15px;
+            }
+
+            /* Dados passam a ocupar 1 coluna cheia, sem quebras laterais espremidas */
+            .dados-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .info-field.full-width {
+                grid-column: span 1;
+            }
+
+            /* Rodapé empilha os textos e o selo */
+            .footer {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Topo da Carteirinha -->
+    <div class="header">
+        <div class="logo-container">
+            <img src="/static/logo_unifil_horizontal.png" alt="UniFil">
+        </div>
+        <div class="header-titles">
+            <h1>Centro Universitário Filadéfia</h1>
+            <div class="sub-header">Identificação Estudantil Digital</div>
+        </div>
+    </div>
+
+    <!-- Corpo Principal (Responsivo) -->
+    <div class="main-content">
+        <!-- Foto e Status -->
+        <div class="foto-container">
+            <img src="/static/foto_aluno.png" alt="Foto de {{ aluno.nome }}" class="foto-aluno">
+            <div class="status-box">
+                MATRÍCULA ATIVA
+            </div>
+        </div>
+
+        <!-- Dados do Aluno -->
+        <div class="dados-grid">
+            <div class="info-field full-width">
+                <div class="label">Estudante</div>
+                <div class="value value-destaque">GABRIEL BORINI ARANDA</div>
+            </div>
+            
+            <div class="info-field full-width">
+                <div class="label">Curso</div>
+                <div class="value" style="font-weight: 600; color: #0f172a;">ANÁLISE E DESENVOLVIMENTO DE SISTEMAS</div>
+            </div>
+
+            <div class="info-field">
+                <div class="label">Matrícula (R.A.)</div>
+                <div class="value" style="font-family: monospace; font-weight: 700; font-size: 1.05rem;">0241454039</div>
+            </div>
+
+            <div class="info-field">
+                <div class="label">Validade</div>
+                <div class="value" style="color: #137333; font-weight: 700;">31/07/2027</div>
+            </div>
+
+            <div class="info-field">
+                <div class="label">CPF</div>
+                <div class="value">091.092.559-31</div>
+            </div>
+
+            <div class="info-field">
+                <div class="label">Nascimento</div>
+                <div class="value">17/01/1999</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé Técnico/Legal -->
+    <div class="footer">
+        <div class="footer-text">
+            <strong>Consulta em:</strong> 17/07/2026<br>
+            Validação digital nos termos da Lei nº 12.605/2012 e ICP-Brasil. Substitui o documento físico.
+        </div>
+        <div class="safe-stamp">ICP-BRASIL VALIDA</div>
+    </div>
+</div>
+
+</body>
+</html>
